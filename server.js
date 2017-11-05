@@ -52,9 +52,9 @@ server = http.createServer(function (request, response) {
 
 					foodItem.getNutrition().then(function(nutritionReport) {
 						console.log(nutritionReport);
-						//response.end(nutritionReport);
-					}).catch(function(err) { console.log("Error: " + err) })
-				}).catch(function(err) { console.log("Error: " + err) });
+						response.end(JSON.stringify(nutritionReport.nutrients));
+					}).catch(function(err) { console.log(err) })
+				}).catch(function(err) { console.log(err) });
 			}
 			else { console.log("Endpoint unavailable")}
 		});
@@ -65,26 +65,11 @@ server = http.createServer(function (request, response) {
 port = 3000;
 //host = '172.25.150.65';
 //host = '192.168.11.119';
-host = '192.168.137.9';
+//host = '192.168.137.9';
+//host = '192.168.137.70';
+host = 'ec2-18-216-167-111';
 server.listen(port, host);
 console.log('Listening at http://' + host + ':' + port);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
