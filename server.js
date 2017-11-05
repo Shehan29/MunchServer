@@ -19,7 +19,7 @@ app.get('/', function(req,res) {
 
 app.post('/recognize', function(req,res){
 	console.log("Sending image to API ...");
-	
+	console.log(req.body.img.length > 1000);
 	clarifaiApp.models.predict(Clarifai.FOOD_MODEL, {base64: decodeURIComponent(req.body.img)}, { minValue: 0.8, maxConcepts: 5 }).then(
 		function (imgResponse) {
 			const matchedList = {
@@ -38,6 +38,7 @@ app.post('/recognize', function(req,res){
 
 app.post('/data', function(req,res){
 	console.log("Sending query to NDB ...");
+	console.log(req.body.name);
 	NF.searchFoods({
 		q: req.body.name,
 		ds: 'Standard Reference',
@@ -46,7 +47,7 @@ app.post('/data', function(req,res){
 		var foodItem = results.list.item[0];
 		
 		foodItem.getNutrition().then(function (nutritionReport) {
-			console.log('Nutrition report sent');
+			console.log(nutritionReport.name);
 			res.send(nutritionReport.nutrients);
 		}).catch(function (err) {
 			console.log(err)
@@ -56,9 +57,9 @@ app.post('/data', function(req,res){
 	});
 });
 
-	host = 'localhost';
+	host = '192.168.137.70';
 	port = 3000;
-	app.listen(port, function(){
+	app.listen(port, host, function(){
 	console.log('Server running at ' + host + ":" + port);
 });
 
