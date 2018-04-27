@@ -16,6 +16,7 @@
     "clarifai": "^2.4.0",
     "cors": "^2.8.1",
     "express": "^4.14.0",
+    "hoek": "^5.0.3",
     "nutrition-facts": "^0.1.0"
   }
 }
